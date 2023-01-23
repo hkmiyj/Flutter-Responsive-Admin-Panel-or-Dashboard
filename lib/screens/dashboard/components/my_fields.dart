@@ -1,12 +1,15 @@
 import 'package:admin/models/MyFiles.dart';
+import 'package:admin/models/shelter.dart';
+import 'package:admin/models/victim.dart';
 import 'package:admin/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import 'file_info_card.dart';
 
-class MyFiles extends StatelessWidget {
-  const MyFiles({
+class SummaryInfo extends StatelessWidget {
+  const SummaryInfo({
     Key? key,
   }) : super(key: key);
 
@@ -15,27 +18,6 @@ class MyFiles extends StatelessWidget {
     final Size _size = MediaQuery.of(context).size;
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "My Files",
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-            ElevatedButton.icon(
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.symmetric(
-                  horizontal: defaultPadding * 1.5,
-                  vertical:
-                      defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
-                ),
-              ),
-              onPressed: () {},
-              icon: Icon(Icons.add),
-              label: Text("Add New"),
-            ),
-          ],
-        ),
         SizedBox(height: defaultPadding),
         Responsive(
           mobile: FileInfoCardGridView(
@@ -53,7 +35,7 @@ class MyFiles extends StatelessWidget {
 }
 
 class FileInfoCardGridView extends StatelessWidget {
-  const FileInfoCardGridView({
+  FileInfoCardGridView({
     Key? key,
     this.crossAxisCount = 4,
     this.childAspectRatio = 1,
@@ -62,19 +44,73 @@ class FileInfoCardGridView extends StatelessWidget {
   final int crossAxisCount;
   final double childAspectRatio;
 
+  String openShelterCount(shelters) {
+    int open = 0;
+    for (var shelter in shelters)
+      if (shelter.status == true) {
+        open += 1;
+      }
+    return open.toString();
+  }
+
+  String victimNeedHelp(victims) {
+    int open = 0;
+    for (var victim in victims)
+      if (victim.status == true) {
+        open += 1;
+      }
+    return open.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _shelters = Provider.of<List<Shelter>>(context);
+    final _victims = Provider.of<List<Victim>>(context);
+
+    List GridInfo = [
+      CloudStorageInfo(
+        title: "Total Shelter",
+        numOfFiles: 1328,
+        totalStorage: _shelters.length.toString(),
+        color: Colors.red,
+        percentage: 0,
+      ),
+      CloudStorageInfo(
+        title: "Open Shelter",
+        numOfFiles: 1328,
+        svgSrc: "assets/icons/google_drive.svg",
+        totalStorage: openShelterCount(_shelters),
+        color: Colors.red,
+        percentage: 0,
+      ),
+      CloudStorageInfo(
+        title: "Need Help",
+        numOfFiles: 1328,
+        svgSrc: "assets/icons/one_drive.svg",
+        totalStorage: victimNeedHelp(_victims),
+        color: Colors.red,
+        percentage: 0,
+      ),
+      CloudStorageInfo(
+        title: "Active User",
+        numOfFiles: 5328,
+        svgSrc: "assets/icons/drop_box.svg",
+        totalStorage: "1",
+        color: Colors.red,
+        percentage: 0,
+      ),
+    ];
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: demoMyFiles.length,
+      itemCount: GridInfo.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
         crossAxisSpacing: defaultPadding,
         mainAxisSpacing: defaultPadding,
         childAspectRatio: childAspectRatio,
       ),
-      itemBuilder: (context, index) => FileInfoCard(info: demoMyFiles[index]),
+      itemBuilder: (context, index) => FileInfoCard(info: GridInfo[index]),
     );
   }
 }

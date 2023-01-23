@@ -31,8 +31,22 @@ dependencies:
   google_fonts: ^2.1.0
   flutter_svg: ^0.22.0
   fl_chart: ^0.36.1
-  provider: ^5.0.0
+  provider: ^6.0.3
   data_table_2: ^2.0.3
+  flutter_map: ^3.1.0
+  latlong2: ^0.8.1
+  flutter_map_location_marker: ^5.1.0+1
+  flutter_map_dragmarker: ^4.1.2
+  flutter_map_marker_popup: any
+  one_clock: ^1.0.7
+  page_transition: ^2.0.9
+  firebase_database: ^10.0.9
+  firebase_core: ^2.4.1
+  cloud_firestore: ^4.3.1
+  flutterfire_cli: ^0.2.4
+  geocoding: ^2.0.5
+  location: ^4.4.0
+  flutter_geocoder: ^0.2.2-nullsafety
 
 dev_dependencies:
   flutter_test:

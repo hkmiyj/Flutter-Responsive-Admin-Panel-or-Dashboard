@@ -24,53 +24,40 @@ class FileInfoCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          Center(
+            child: Text(
+              info.title!,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 padding: EdgeInsets.all(defaultPadding * 0.75),
-                height: 40,
-                width: 40,
+                height: 100,
+                width: 130,
                 decoration: BoxDecoration(
                   color: info.color!.withOpacity(0.1),
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                 ),
-                child: SvgPicture.asset(
-                  info.svgSrc!,
-                  color: info.color,
+                child: Center(
+                  child: Text(
+                    info.totalStorage!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption!
+                        .copyWith(color: Colors.white, fontSize: 30),
+                  ),
                 ),
               ),
-              Icon(Icons.more_vert, color: Colors.white54)
             ],
-          ),
-          Text(
-            info.title!,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
           ),
           ProgressLine(
             color: info.color,
             percentage: info.percentage,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "${info.numOfFiles} Files",
-                style: Theme.of(context)
-                    .textTheme
-                    .caption!
-                    .copyWith(color: Colors.white70),
-              ),
-              Text(
-                info.totalStorage!,
-                style: Theme.of(context)
-                    .textTheme
-                    .caption!
-                    .copyWith(color: Colors.white),
-              ),
-            ],
-          )
         ],
       ),
     );

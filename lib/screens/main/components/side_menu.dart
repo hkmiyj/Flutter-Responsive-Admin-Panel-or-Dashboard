@@ -1,5 +1,10 @@
+import 'package:admin/controllers/MenuController.dart';
+import 'package:admin/screens/main/main_screen.dart';
+import 'package:admin/screens/RequestManagement/shelter_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
@@ -17,42 +22,32 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             title: "Dashboard",
             svgSrc: "assets/icons/menu_dashbord.svg",
-            press: () {},
+            press: () {
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.fade, child: MainScreen()));
+              context
+                  .read<MenuController>()
+                  .scaffoldKey
+                  .currentState!
+                  .closeDrawer();
+            },
           ),
           DrawerListTile(
-            title: "Transaction",
+            title: "Manage Shelter",
             svgSrc: "assets/icons/menu_tran.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Task",
-            svgSrc: "assets/icons/menu_task.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Documents",
-            svgSrc: "assets/icons/menu_doc.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Store",
-            svgSrc: "assets/icons/menu_store.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Notification",
-            svgSrc: "assets/icons/menu_notification.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Profile",
-            svgSrc: "assets/icons/menu_profile.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Settings",
-            svgSrc: "assets/icons/menu_setting.svg",
-            press: () {},
+            press: () {
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.fade, child: shelterPage()));
+              context
+                  .read<MenuController>()
+                  .scaffoldKey
+                  .currentState!
+                  .closeDrawer();
+            },
           ),
         ],
       ),
