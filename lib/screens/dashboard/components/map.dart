@@ -240,9 +240,7 @@ class _mapViewsState extends State<mapViews> with TickerProviderStateMixin {
                 Text(" "),
                 Text("Phone Number",
                     style: TextStyle(fontWeight: FontWeight.bold)),
-                TextFormField(
-                  controller: tbPhone,
-                ),
+                Text(shelter.phone),
                 Text(" "),
                 Text("Shelter Status",
                     style: TextStyle(fontWeight: FontWeight.bold)),
